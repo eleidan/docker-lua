@@ -27,13 +27,16 @@ RUN curl -R -O http://www.lua.org/ftp/${LUA_PACKAGE} \
     && rm -rf *
 
 # Install LuaRocks
-RUN mkdir -p ${HOME}/.cache/luarocks && chown -R phantom:phantom ${HOME}
-RUN wget https://luarocks.org/releases/luarocks-3.0.4.tar.gz \
-    && tar zxpf luarocks-3.0.4.tar.gz \
-    && cd luarocks-3.0.4 \
+# RUN mkdir -p ${HOME}/.cache/luarocks && chown -R phantom:phantom ${HOME}
+ARG LUA_ROCKS_VERSION="3.0.4"
+RUN wget https://luarocks.org/releases/luarocks-${LUA_ROCKS_VERSION}.tar.gz \
+    && tar zxpf luarocks-${LUA_ROCKS_VERSION}.tar.gz \
+    && cd luarocks-${LUA_ROCKS_VERSION} \
     && ./configure \
     && make install \
     && rm -rf *
+
+ENV PATH=${PATH}:${HOME}/app/lua_modules/bin
 
 RUN chown -R phantom:phantom ${HOME}
 
