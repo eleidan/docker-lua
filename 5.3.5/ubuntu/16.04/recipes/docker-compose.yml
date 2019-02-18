@@ -5,8 +5,9 @@ volumes:
 
 services:
   dev:
-    image: eleidan/lua:5.3.5-ubuntu-16.04
+    build: .
     user: phantom
+    init: true
     volumes:
       - .:/home/phantom/app
       - bash-history:/home/phantom/bash-history
